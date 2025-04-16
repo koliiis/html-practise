@@ -1,1 +1,120 @@
+$rank-size: 32px;
+$photo-size: 200px;
+$rank-top: ($photo-size / 2) - ($rank-size / 2);
+$rank-left: $photo-size - $rank-size - 10px;
+$before-position: -10px;
 
+body {
+  margin: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+.athletes {
+  --column-count: 2;
+
+  display: grid;
+  grid-template-columns: repeat(var(--column-count), 1fr);
+  row-gap: 40px;
+  column-gap: 30px;
+
+  margin: 30px auto;
+  min-width: 430px;
+  max-width: fit-content;
+
+  @media (min-width: 1000px) {
+    --column-count: 4;
+  }
+
+  &__person {
+    position: relative;
+    transition: transform 1s;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: $before-position;
+      left: $before-position;
+      right: $before-position;
+      bottom: $before-position;
+      background-color: #EEEEEE;
+      z-index: -1;
+      display: none;
+      border-radius: 10px;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+
+      &::before {
+        display: block;
+      }
+
+      .athletes__img {
+        border-radius: 25%;
+      }
+
+      .athletes__extra {
+        visibility: visible;
+      }
+    }
+  }
+
+  &__photo-card {
+    position: relative;
+
+    width: $photo-size;
+    height: $photo-size;
+  }
+
+  &__img {
+    width: 100%;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+
+    transition: border-radius 1s;
+  }
+
+  &__rank {
+    position: absolute;
+    top: $rank-top;
+    left: $rank-left;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: $rank-size;
+    height: $rank-size;
+
+    background-color: #fff;
+    border-radius: 50%;
+
+    font-size: 16px;
+    color: #8B0000;
+  }
+
+  &__details {
+    margin-top: 8px;
+
+    text-align: center;
+  }
+
+  &__name {
+    font-size: 20px;
+    color: #2F4F4F;
+  }
+
+  &__extra {
+    font-weight: 400;
+    font-size: 18px;
+
+    position: static;
+    visibility: hidden;
+    width: 100%;
+    padding: 9px 0 6px;
+  }
+}
